@@ -5,16 +5,16 @@ import ohtu.verkkokauppa.Kirjanpito;
 import ohtu.verkkokauppa.Varasto;
 import ohtu.verkkokauppa.Pankki;
 import ohtu.verkkokauppa.Viitegeneraattori;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
 
     public static void main(String[] args) {
+        
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
 
-        Viitegeneraattori viitegen = new Viitegeneraattori();
-        Kirjanpito kirjanpito = new Kirjanpito();
-        Varasto varasto = new Varasto(kirjanpito);
-        Pankki pankki = new Pankki(kirjanpito);
-        Kauppa kauppa = new Kauppa(varasto, pankki, viitegen);
+        Kauppa kauppa = ctx.getBean(Kauppa.class);
 
         // kauppa hoitaa yhden asiakkaan kerrallaan seuraavaan tapaan:
         kauppa.aloitaAsiointi();
@@ -33,7 +33,7 @@ public class Main {
         kauppa.tilimaksu("Arto Vihavainen", "3425-1652");
 
         // kirjanpito
-        for (String tapahtuma : kirjanpito.getTapahtumat()) {
+        for (String tapahtuma : ctx.getBean(Kirjanpito.class).getTapahtumat()) {
             System.out.println(tapahtuma);
         }
     }
