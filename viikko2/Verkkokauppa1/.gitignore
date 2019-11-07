@@ -9,3 +9,8 @@ build
 .project
 .classpath
 .settings/
+
+# NetBeans
+
+.nb-gradle/
+bin/
