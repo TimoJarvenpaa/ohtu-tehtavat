@@ -41,6 +41,29 @@ public class AuthenticationService {
     private boolean invalid(String username, String password) {
         // validity check of username and password
 
+        // username must be at least 3 characters long
+        if(username.length() < 3){
+            return true;
+        }
+        
+        // password must be at least 8 characters long
+        if(password.length() < 8){
+            return true;
+        }
+        
+        // a-z
+        for(char c : username.toCharArray()){
+            if(!Character.isLetter(c) || Character.isUpperCase(c)){
+                return true;
+            }
+        }
+        
+        // password must have at least one character that is not a letter
+        boolean allLetters = password.chars().allMatch(Character::isLetter);
+        if(allLetters){
+            return true;
+        }
+        
         return false;
     }
 }
