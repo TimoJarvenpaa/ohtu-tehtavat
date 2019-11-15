@@ -76,8 +76,12 @@ public class Player {
         this.birthdate = birthdate;
     }
 
+    public int getPoints() {
+        return goals + assists;
+    }
+
     @Override
     public String toString() {
-        return name + " team " + team + " goals " + goals + " assists " + assists;
+        return String.format("%-20s %-3s %3d %s %2d %s %2d", name, team, goals, "+", assists, "=", this.getPoints());
     }
 }

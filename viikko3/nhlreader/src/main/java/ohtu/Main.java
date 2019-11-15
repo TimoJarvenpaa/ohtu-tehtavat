@@ -2,8 +2,8 @@ package ohtu;
 
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Comparator;
 import org.apache.http.client.fluent.Request;
 
 public class Main {
@@ -23,6 +23,7 @@ public class Main {
         Arrays.stream(players)
                 .filter(player -> player.getNationality()
                 .matches("FIN"))
+                .sorted(Comparator.comparingInt(Player::getPoints).reversed())
                 .forEach(player -> System.out.println(player)
                 );
     }
