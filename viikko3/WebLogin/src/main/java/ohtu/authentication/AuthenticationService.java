@@ -33,7 +33,26 @@ public class AuthenticationService {
         if (username.length()<3 ) {
             status.addError("username should have at least 3 characters");
         }
-
+        
+        if(password.length() < 8){
+            status.addError("password should have at least 8 characters");
+        }
+        
+        boolean allLetters = username.chars().allMatch(Character::isLetter);
+        boolean allLowerCase = username.chars().allMatch(Character::isLowerCase);
+        if(!allLetters || !allLowerCase){
+            status.addError("username can only contain lowercase letters");
+        }
+        
+        boolean passwordContainsOnlyLetters = password.chars().allMatch(Character::isLetter);
+        if(passwordContainsOnlyLetters){
+            status.addError("password must have at least one character that is not a letter");
+        }
+        
+        if(!password.equals(passwordConfirmation)){
+            status.addError("password and password confirmation do not match");
+        }
+        
         if (status.isOk()) {
             userDao.add(new User(username, password));
         }
