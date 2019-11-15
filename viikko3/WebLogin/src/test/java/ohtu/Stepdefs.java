@@ -30,6 +30,13 @@ public class Stepdefs {
         element.click();   
     }
     
+    @Given("user with username {string} with password {string} is successfully created")
+    public void userWithUsernameWithPasswordIsSuccessfullyCreated(String username, String password) {
+        newUserIsSelected();
+        signUpWith(username, password, password);
+        aNewUserIsCreated();
+    }
+    
     @When("a valid username {string} and password {string} and matching password confirmation are entered")
     public void aValidUsernameAndPasswordAndMatchingPasswordConfirmationAreEntered(String username, String password) {
         signUpWith(username, password, password);
@@ -90,6 +97,17 @@ public class Stepdefs {
     @Then("system will respond {string}")
     public void systemWillRespond(String pageContent) throws Throwable {
         assertTrue(driver.getPageSource().contains(pageContent));
+    }
+    
+    @Given("user with username {string} and password {string} is tried to be created")
+    public void userWithUsernameAndPasswordIsTriedToBeCreated(String username, String password) {
+        newUserIsSelected();
+        signUpWith(username, password, password);
+    }
+
+    @When("an invalid username {string} and an invalid password {string} are given")
+    public void anInvalidUsernameAndAnInvalidPasswordAreGiven(String username, String password) {
+        logInWith(username, password);
     }
     
     @After
