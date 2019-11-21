@@ -8,3 +8,4 @@ build
 
 # NetBeans
 .nb-gradle/
+nbproject/
