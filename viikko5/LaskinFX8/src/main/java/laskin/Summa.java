@@ -10,6 +10,7 @@ public class Summa implements Komento {
     private Button undo;
     private Button nollaa;
     private Sovelluslogiikka sovellus;
+    private int edellinen;
 
     public Summa(TextField tuloskentta, TextField syotekentta, Button nollaa, Button undo, Sovelluslogiikka sovellus) {
         this.tuloskentta = tuloskentta;
@@ -28,6 +29,7 @@ public class Summa implements Komento {
         } catch (Exception e) {
         }
         
+        this.edellinen = Integer.parseInt(tuloskentta.getText());
         sovellus.plus(arvo);
         int laskunTulos = sovellus.tulos();
         syotekentta.setText("");
@@ -43,6 +45,9 @@ public class Summa implements Komento {
 
     @Override
     public void peru() {
+        tuloskentta.setText("" + edellinen);
+        sovellus.nollaa();
+        undo.disableProperty().set(true);
     }
 
 }
