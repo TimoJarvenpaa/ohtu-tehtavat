@@ -9,7 +9,9 @@ public class QueryBuilder {
     }
     
     public Matcher build() {
-        return this.matcher;
+        Matcher result = this.matcher;
+        resetQuery(); // so that after building a query, the previous matchers won't affect the following ones
+        return result;
     }
     
     public QueryBuilder playsIn(String team) {
@@ -25,6 +27,15 @@ public class QueryBuilder {
     public QueryBuilder hasFewerThan(int value, String category) {
         this.matcher = new And(new HasFewerThan(value, category), this.matcher);
         return this;
+    }
+    
+    public QueryBuilder oneOf(Matcher... matchers) {
+        this.matcher = new Or(matchers);
+        return this;
+    }
+    
+    public void resetQuery() {
+        this.matcher = new All();
     }
     
 }
